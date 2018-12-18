@@ -1,0 +1,43 @@
+<h1>Build Your Own Cat!</h1>
+<% if edit %>
+<% action = cat_url(cat) %>
+<% else %>
+<% action = cats_url %>
+<% end %>
+<form action="<%= action %>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" name="cat[name]" value="<%= cat.name %>"></td>
+    </tr>
+    <tr>
+      <td>Sex:</td>
+      <td>
+        <input type="radio" name="cat[sex]" 
+          value="M"<%= ' checked= "checked"' if cat.sex == 'M' || cat.sex.nil? %>> M 
+        <input type="radio" name="cat[sex]" 
+          value="F"<%= ' checked= "checked"' if cat.sex == 'F' %>> F
+      </td>
+    </tr>
+    <tr>
+      <td>Color:</td>
+      <td><select name="cat[color]"> 
+        <option value= "" disabled<%= " selected" if cat.color.nil? %>>Choose a Color</option>
+        <% cat.colors.each do |color| %>
+        <option value= "<%= color %>"<%= " selected" if cat.color == color %>><%= color %></option>
+        <% end %>
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td>Birth Date:</td>
+      <td><input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>"></td>
+    </tr>
+    <tr>
+      <td>Description:</td>
+      <td><textarea name="cat[description]" rows="5" cols="40"><% cat.description %></textarea></td>
+    </tr>
+  </table>
+</form>
+<input type="submit" value="<%= edit ? 'Save Changes' : 'Create my new cat!' %>">
