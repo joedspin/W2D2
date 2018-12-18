@@ -19,6 +19,11 @@ class Cat < ApplicationRecord
   validates :birth_date, :color, :name, :sex, presence: true 
   include ActionView::Helpers::DateHelper
 
+  has_many :cat_rental_requests,
+  foreign_key: :cat_id,
+  class_name: :CatRentalRequest,
+  dependent: :destroy
+
   def age
     distance_of_time_in_words(birth_date, Time.now)
   end

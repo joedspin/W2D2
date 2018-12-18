@@ -5,7 +5,9 @@
 <% action = cats_url %>
 <% end %>
 <form action="<%= action %>" method="POST">
+<% if edit %>
   <input type="hidden" name="_method" value="PATCH">
+<% end %>
   <table>
     <tr>
       <td>Name:</td>
@@ -39,5 +41,5 @@
       <td><textarea name="cat[description]" rows="5" cols="40"><% cat.description %></textarea></td>
     </tr>
   </table>
+  <input type="submit" value="<%= edit ? 'Save Changes' : 'Create my new cat!' %>">
 </form>
-<input type="submit" value="<%= edit ? 'Save Changes' : 'Create my new cat!' %>">
